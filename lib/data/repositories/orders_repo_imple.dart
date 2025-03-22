@@ -15,7 +15,6 @@ class OrdersRepoImple implements OrdersRepo {
       await _remoteSource.cancelOrder(orderId);
       return const Right(unit);
     } catch (e) {
-      print(e.toString());
       return Left(Failure(e.toString()));
     }
   }
