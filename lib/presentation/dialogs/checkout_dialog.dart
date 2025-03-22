@@ -121,6 +121,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
                 total: widget.total.toDouble(),
                 coupon: couponCtl.text.isEmpty ? null : couponCtl.text,
                 createdAt: DateTime.now(),
+                message: "",
               );
               widget.onOrder(order);
             },

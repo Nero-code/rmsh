@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     ),
                     const SizedBox(height: 30),
                     ActionChip.elevated(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         label: SizedBox(
                             width: MediaQuery.sizeOf(context).width,
                             child: const Center(

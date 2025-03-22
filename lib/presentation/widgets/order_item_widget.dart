@@ -81,7 +81,33 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Text(
                       "${item.count}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (item.offerPrice > 0)
+                      Text(
+                        "SYP ${item.price}",
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          fontSize: 10,
+                          color: Colors.red,
+                          // color: Colors.blueGrey,
+                        ),
+                      ),
+                    Text(
+                      "SYP ${item.price - item.offerPrice}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: item.offerPrice > 0
+                            ? Colors.green
+                            : Colors.blueGrey,
+                        // color: Colors.red,
+                      ),
                     ),
                   ],
                 ),

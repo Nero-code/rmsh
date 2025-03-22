@@ -16,7 +16,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
       total: double.parse(json['total'].toString()),
       createdAt: DateTime.parse(json['created_at'] as String),
       coupon: json['coupon'] as String?,
-      message: json['message'] as String?,
+      message: (json['message'] ?? "") as String,
     );
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>

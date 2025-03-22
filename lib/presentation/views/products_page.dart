@@ -57,20 +57,72 @@ class _ProductsPageState extends State<ProductsPage> {
           //   style: TextStyle(color: Color.fromARGB(255, 255, 237, 73)),
           // ),
           child: Image(
-            image: AssetImage(AssetsNames.LOGO_YELLOW),
-            width: 70,
+            image: AssetImage(AssetsNames.LOGO_YELLOW_TRIM),
+            // width: 70,
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: const SizedBox(),
-        bottom: PreferredSize(
-          preferredSize: Size(screenSize.width, 70),
-          child: SizedBox(
-            width: screenSize.width * 0.9,
+        shadowColor: Colors.black,
+        elevation: 10,
+        // leading: const SizedBox(),
+        // bottom: PreferredSize(
+        //   preferredSize: Size(screenSize.width, 70),
+        //   child: SizedBox(
+        //     width: screenSize.width * 0.9,
+        //     height: screenSize.height * 0.1,
+        //     child: Center(
+        //       child: SizedBox(
+        //         height: 40,
+        //         child: TextField(
+        //           onTapOutside: (event) =>
+        //               FocusScope.of(context).requestFocus(FocusNode()),
+        //           controller: searchController,
+        //           decoration: InputDecoration(
+        //             fillColor: Colors.white54,
+        //             filled: true,
+        //             prefixIcon: const Icon(Icons.search),
+        //             contentPadding:
+        //                 const EdgeInsets.symmetric(horizontal: 15.0),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(1000),
+        //               borderSide: BorderSide.none,
+        //             ),
+        //             suffixIcon: Selector<ProductListState, bool>(
+        //                 selector: (context, state) => state.isSearchMode,
+        //                 builder: (context, isSearchMode, child) {
+        //                   return isSearchMode
+        //                       ? IconButton(
+        //                           onPressed: () {
+        //                             searchQuery = null;
+        //                             searchController.clear();
+        //                             addPostFrameCallback(() =>
+        //                                 provider.getAllProducts(
+        //                                     selectedCategory, searchQuery));
+        //                           },
+        //                           icon: const Icon(Icons.close))
+        //                       : const SizedBox();
+        //                 }),
+        //             hintText: "البحث",
+        //           ),
+        //           onSubmitted: (value) {
+        //             searchQuery = value;
+        //             print("$searchQuery : $value");
+        //             addPostFrameCallback(
+        //                 () => provider.getAllProducts(selectedCategory, value));
+        //           },
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+
+        actions: [
+          SizedBox(
+            width: screenSize.width * 0.7,
             height: screenSize.height * 0.1,
             child: Center(
               child: SizedBox(
-                height: 40,
+                height: 30,
                 child: TextField(
                   onTapOutside: (event) =>
                       FocusScope.of(context).requestFocus(FocusNode()),
@@ -90,6 +142,9 @@ class _ProductsPageState extends State<ProductsPage> {
                         builder: (context, isSearchMode, child) {
                           return isSearchMode
                               ? IconButton(
+                                  splashRadius: 20,
+                                  iconSize: 20,
+                                  padding: EdgeInsets.zero,
                                   onPressed: () {
                                     searchQuery = null;
                                     searchController.clear();
@@ -97,7 +152,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                         provider.getAllProducts(
                                             selectedCategory, searchQuery));
                                   },
-                                  icon: const Icon(Icons.close))
+                                  icon: const Icon(Icons.close, size: 20))
                               : const SizedBox();
                         }),
                     hintText: "البحث",
@@ -112,8 +167,6 @@ class _ProductsPageState extends State<ProductsPage> {
               ),
             ),
           ),
-        ),
-        actions: [
           PopupMenuButton(
               icon: const Icon(Icons.menu, color: Colors.white),
               offset: const Offset(0, 45),
@@ -222,7 +275,8 @@ class _ProductsPageState extends State<ProductsPage> {
             }
 
             return RefreshIndicator(
-              onRefresh: provider.refresh,
+              onRefresh: () async =>
+                  await provider.refresh(selectedCategory, searchQuery),
               child: ListView.builder(
                 padding:
                     const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 10),

@@ -31,27 +31,49 @@ class CartWidget extends StatelessWidget {
           Expanded(
             child: Material(
               child: InkWell(
-                child: const SizedBox.square(
-                    dimension: 50,
+                child: const SizedBox(
+                    height: 100,
                     child: Icon(
                       Icons.delete_forever,
                       color: Colors.red,
                     )),
-                onTapUp: (details) => removeItem(),
+                onTapUp: (details) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("حذف؟"),
+                      content: Text("هل انت متأكد من حذف \"${item.c.name}\""),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("لا"),
+                        ),
+                        ElevatedButton(
+                          onPressed: removeItem,
+                          child: const Text("نعم"),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
           const SizedBox(width: 5),
-          CachedNetworkImage(
-            imageUrl: item.c.thumbnail,
-            width: 70,
-            height: 70,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-          ),
-          const SizedBox(width: 5.0),
           Expanded(
-            flex: 5,
+            flex: 4,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: CachedNetworkImage(
+                imageUrl: item.c.thumbnail,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            flex: 9,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -112,7 +134,31 @@ class CartWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (hasError != null) Text("$hasError"),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (item.c.offerPrice > 0)
+                      Text(
+                        "SYP ${item.c.price}",
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          fontSize: 10,
+                          color: Colors.red,
+                          // color: Colors.blueGrey,
+                        ),
+                      ),
+                    Text(
+                      "SYP ${item.c.price - item.c.offerPrice}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: item.c.offerPrice > 0
+                            ? Colors.green
+                            : Colors.blueGrey,
+                        // color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
