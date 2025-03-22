@@ -15,7 +15,6 @@ class OrdersRepoImple implements OrdersRepo {
       await _remoteSource.cancelOrder(orderId);
       return const Right(unit);
     } catch (e) {
-      print(e.toString());
       return Left(Failure(e.toString()));
     }
   }
@@ -24,6 +23,7 @@ class OrdersRepoImple implements OrdersRepo {
   Future<Either<Failure, List<OrderModel>>> getAllOrders() async {
     try {
       final res = await _remoteSource.getAllOrders();
+      res.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       return Right(res);
     } on EmptyResponseException {
       return const Left(EmptyResponseFailure("لا يوجد طلبات"));
