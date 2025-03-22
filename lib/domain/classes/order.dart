@@ -14,10 +14,9 @@ import 'package:rmsh/domain/classes/cart_item.dart';
 // }
 
 class OrderEntity extends Equatable {
-  final String id;
+  final String id, deliveryOffice;
   final List<CartItem> items;
-  final String deliveryOffice;
-  final String? coupon;
+  final String? coupon, message;
   final OrderStatus status;
   final double total;
   final DateTime createdAt;
@@ -30,6 +29,7 @@ class OrderEntity extends Equatable {
     required this.total,
     required this.createdAt,
     this.coupon,
+    this.message,
   });
 
   @override

@@ -95,7 +95,8 @@ class OrderWidget extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    if (entity.message != null) Text(entity.message!),
                   ],
                 ),
               ),

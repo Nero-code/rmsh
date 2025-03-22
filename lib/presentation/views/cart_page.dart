@@ -46,7 +46,7 @@ class CartPage extends StatelessWidget {
             ],
           ),
           Positioned(
-            bottom: 0.0,
+            bottom: 10.0,
             width: MediaQuery.sizeOf(context).width,
             child: Center(
               child: FilledButton(

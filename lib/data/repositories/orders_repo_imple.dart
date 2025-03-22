@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:rmsh/core/errors/exceptions.dart';
 import 'package:rmsh/core/errors/failures.dart';
 import 'package:rmsh/data/models/order_model.dart';
 import 'package:rmsh/data/sources/orders_remote.dart';
@@ -24,6 +25,8 @@ class OrdersRepoImple implements OrdersRepo {
     try {
       final res = await _remoteSource.getAllOrders();
       return Right(res);
+    } on EmptyResponseException {
+      return const Left(EmptyResponseFailure("لا يوجد طلبات"));
     } catch (e) {
       return Left(Failure(e.toString()));
     }

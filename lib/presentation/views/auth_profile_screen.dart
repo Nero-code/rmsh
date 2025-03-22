@@ -234,6 +234,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     builder: (context) => BasicDialog(
                       icon: const Icon(Icons.warning_rounded,
                           size: 50, color: Colors.red),
+                      title: "خطأ",
                       content: profileError.msg,
                       action: () {
                         Provider.of<ProfileState>(context).resetError();

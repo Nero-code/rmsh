@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rmsh/core/constants/assets_names.dart';
 import 'package:rmsh/core/errors/failures.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/providers/product_list_state.dart';
@@ -50,27 +52,17 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-            child: Text(
-          'رمش',
-          style: TextStyle(color: Color.fromARGB(255, 255, 237, 73)),
-        )),
+          // child: Text(
+          //   'رمش',
+          //   style: TextStyle(color: Color.fromARGB(255, 255, 237, 73)),
+          // ),
+          child: Image(
+            image: AssetImage(AssetsNames.LOGO_YELLOW),
+            width: 70,
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         leading: const SizedBox(),
-        // leading: IconButton(
-        //   onPressed: () async {
-        //     if (isSearchMode && searchController.text.isNotEmpty) {
-        //       searchQuery = null;
-        //       searchController.clear();
-        //       addPostFrameCallback(
-        //           () => provider.getAllProducts(selectedCategory, searchQuery));
-        //     }
-        //     isSearchMode = !isSearchMode;
-        //     setState(() {});
-        //   },
-        //   icon:
-        //       isSearchMode ? const Icon(Icons.close) : const Icon(Icons.search),
-        // ),
-
         bottom: PreferredSize(
           preferredSize: Size(screenSize.width, 70),
           child: SizedBox(
@@ -121,10 +113,9 @@ class _ProductsPageState extends State<ProductsPage> {
             ),
           ),
         ),
-        // : null,
         actions: [
           PopupMenuButton(
-              icon: const Icon(Icons.menu, color: Colors.amber),
+              icon: const Icon(Icons.menu, color: Colors.white),
               offset: const Offset(0, 45),
               itemBuilder: (c) {
                 return [
@@ -226,7 +217,9 @@ class _ProductsPageState extends State<ProductsPage> {
       body: Stack(
         children: [
           Consumer<ProductListState>(builder: (context, state, child) {
-            print(state.toString());
+            if (kDebugMode) {
+              print(state.toString());
+            }
 
             return RefreshIndicator(
               onRefresh: provider.refresh,
@@ -239,7 +232,6 @@ class _ProductsPageState extends State<ProductsPage> {
                     return Selector<ProductListState, List<String>>(
                         selector: (context, state) => state.categories,
                         builder: (context, categories, child) {
-                          print("categories: $categories");
                           return SizedBox(
                             height: 70,
                             child: ListView(
@@ -249,7 +241,6 @@ class _ProductsPageState extends State<ProductsPage> {
                               children: [
                                 for (var c in categories) ...[
                                   FilterChip(
-                                    // label: Text("القسم ${i + 1}"),
                                     label: Text(c),
                                     onSelected: (selected) {
                                       if (selected && selectedCategory != c) {
@@ -306,7 +297,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       addPostFrameCallback(() =>
                           provider.loadMore(selectedCategory, searchQuery));
                     }
-                    if (index == state.products.length) {
+                    if (index == state.products.length + 1) {
                       return const SizedBox(
                           height: 50,
                           child: Center(child: CircularProgressIndicator()));
@@ -322,19 +313,6 @@ class _ProductsPageState extends State<ProductsPage> {
             selector: (context, state) => state.isLoading,
             builder: (context, isLoading, child) {
               if (isLoading) {
-                //   return ColoredBox(
-                //     color: Colors.black26,
-                //     child: Center(
-                //         child: Material(
-                //       elevation: 3,
-                //       borderRadius: BorderRadius.circular(15),
-                //       child: const Padding(
-                //         padding: EdgeInsets.all(15.0),
-                //         child: CircularProgressIndicator(),
-                //       ),
-                //     )),
-                //   );
-
                 return const LoadingPage();
               }
               return const SizedBox();

@@ -54,7 +54,7 @@ class ProductRepoImple implements ProductRepo {
         // }
         // return const Left(EmptyResponseFailure());
       } on EmptyResponseException {
-        return const Left(EmptyResponseFailure());
+        return const Left(EmptyResponseFailure("لا يوجد منتجات"));
       } catch (e) {
         return Left(Failure(e.toString()));
       }
@@ -89,6 +89,8 @@ class ProductRepoImple implements ProductRepo {
       try {
         final res = await _remoteSource.getProductDetails(id);
         return Right(res);
+      } on EmptyResponseException {
+        return const Left(ItemNotFoundFailure("المنتج غير متوفر"));
       } catch (e) {
         return Left(Failure(e.toString()));
       }
@@ -154,6 +156,8 @@ class ProductRepoImple implements ProductRepo {
       try {
         final res = await _remoteSource.getWishList();
         return Right(res);
+      } on EmptyResponseException {
+        return const Left(EmptyResponseFailure("لا يوجد منتجات محفوظة"));
       } catch (e) {
         return Left(Failure(e.toString()));
       }

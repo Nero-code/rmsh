@@ -43,10 +43,6 @@ class EmptyResponseFailure extends Failure {
   const EmptyResponseFailure([super.msg]);
 }
 
-class EndOfFileFailure extends Failure {
-  const EndOfFileFailure([super.msg]);
-}
-
 class ItemNotFoundFailure extends Failure {
   const ItemNotFoundFailure([super.msg]);
 }

@@ -8,15 +8,16 @@ part 'generated/order_model.g.dart';
 // @JsonSerializable(explicitToJson: true)
 class OrderModel extends OrderEntity implements BaseDTO {
   final List<CartItemModel> cartItems;
-  const OrderModel({
-    required super.id,
-    required this.cartItems,
-    required super.deliveryOffice,
-    super.coupon,
-    required super.status,
-    required super.total,
-    required super.createdAt,
-  }) : super(items: cartItems);
+  const OrderModel(
+      {required super.id,
+      required this.cartItems,
+      required super.deliveryOffice,
+      required super.status,
+      required super.total,
+      required super.createdAt,
+      super.coupon,
+      super.message})
+      : super(items: cartItems);
 
   @override
   factory OrderModel.fromJson(Map<String, dynamic> json) =>

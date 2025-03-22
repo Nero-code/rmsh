@@ -3,17 +3,15 @@ import 'package:rmsh/core/errors/failures.dart';
 String mapFailuresToStrings(Failure f) {
   switch (f.runtimeType) {
     case const (EmailRegistrationFailure):
-      return '';
+      return 'الرجاء ادخال عنوان بريد الكتروني صحيح';
     case const (CodeErrorFailure):
-      return '';
-    case const (ProfileNotFoundFailure):
-      return '';
+      return 'الكود خاطئ, حاول مرة اخرى';
+
     case const (ProfileSubmitionFailure):
       return '';
     case const (EmptyResponseFailure):
       return '';
-    case const (EndOfFileFailure):
-      return '';
+
     case const (ItemNotFoundFailure):
       return '';
     case const (DuplicateActionFailure):

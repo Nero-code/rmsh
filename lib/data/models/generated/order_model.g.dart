@@ -12,10 +12,11 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
           .map((e) => CartItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       deliveryOffice: json['delivery_office'] as String,
-      coupon: json['coupon'] as String?,
       status: $enumDecode(_$OrderStatusEnumMap, json['status']),
       total: double.parse(json['total'].toString()),
       createdAt: DateTime.parse(json['created_at'] as String),
+      coupon: json['coupon'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
