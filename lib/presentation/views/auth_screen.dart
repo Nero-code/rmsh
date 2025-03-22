@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -207,23 +208,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             ),
                           ),
-                          // ElevatedButton(
-                          //   onPressed: () async {
-                          //     if (state.isCodeSent) {
-                          //       code = codeCtl.text;
-                          //       Provider.of<AuthState>(context, listen: false)
-                          //           .verifyCode(
-                          //               emailCtl.text.trim(), codeCtl.text);
-                          //     } else {
-                          //       if (emailCtl.text.contains("@")) {
-                          //         email = emailCtl.text;
-                          //         Provider.of<AuthState>(context, listen: false)
-                          //             .verifyEmail(email.trim());
-                          //       }
-                          //     }
-                          //   },
-                          //   child: Text(state.isCodeSent ? "تأكيد" : "تسجيل"),
-                          // ),
                         ],
                       );
                     }),
@@ -244,7 +228,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   builder: (context, done, child) {
                     if (done && authNotDone) {
                       authNotDone = false;
-                      print("auth proccess done, setting callback to navigate");
+                      if (kDebugMode) {
+                        print(
+                            "auth proccess done, setting callback to navigate");
+                      }
                       WidgetsBinding.instance
                           .addPostFrameCallback((_) => checkForProfile());
                     }

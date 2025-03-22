@@ -22,7 +22,7 @@ class CartState with ChangeNotifier {
     }
 
     total = items
-        .map((e) => e.c.price * e.count)
+        .map((e) => (e.c.price - e.c.offerPrice) * e.count)
         .reduce((value, element) => value + element)
         .toInt();
   }

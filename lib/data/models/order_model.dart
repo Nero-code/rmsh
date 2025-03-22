@@ -12,10 +12,11 @@ class OrderModel extends OrderEntity implements BaseDTO {
     required super.id,
     required this.cartItems,
     required super.deliveryOffice,
-    super.coupon,
     required super.status,
     required super.total,
     required super.createdAt,
+    required super.message,
+    super.coupon,
   }) : super(items: cartItems);
 
   @override
@@ -30,6 +31,7 @@ class OrderModel extends OrderEntity implements BaseDTO {
         status: e.status,
         total: e.total,
         createdAt: e.createdAt,
+        message: e.message,
       );
 
   @override

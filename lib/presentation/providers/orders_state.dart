@@ -29,6 +29,22 @@ class OrdersState with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> refreshOrders() async {
+    getOrdersError = null;
+    // notifyListeners();
+
+    final either = await _usecases.getAllOrders();
+    either.fold(
+      (failure) {
+        getOrdersError = failure;
+      },
+      (success) {
+        orders = success;
+      },
+    );
+    notifyListeners();
+  }
+
   Failure? cancelOrderError;
   void cancelOrder(int orderIndex) async {
     isLoading = true;

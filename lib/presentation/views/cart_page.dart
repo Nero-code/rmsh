@@ -28,7 +28,7 @@ class CartPage extends StatelessWidget {
       return Stack(
         children: [
           ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+            padding: const EdgeInsets.symmetric(vertical: 40),
             children: [
               for (int i = 0; i < state.items.length; i++) ...[
                 CartWidget(
@@ -46,7 +46,7 @@ class CartPage extends StatelessWidget {
             ],
           ),
           Positioned(
-            bottom: 0.0,
+            bottom: 10.0,
             width: MediaQuery.sizeOf(context).width,
             child: Center(
               child: FilledButton(

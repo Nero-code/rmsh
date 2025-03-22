@@ -57,7 +57,7 @@ class ClientHelper {
     }
     if (kDebugMode) {
       print("getListHandler code: ${res.statusCode}");
-      // print("getListHandler body: ${res.data![dataNodeInResponse][0]}");
+      print("getListHandler body: ${res.data}");
     }
     if ((res.data![dataNodeInResponse] as List).isEmpty) {
       throw EmptyResponseException();

@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     ),
                     const SizedBox(height: 30),
                     ActionChip.elevated(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         label: SizedBox(
                             width: MediaQuery.sizeOf(context).width,
                             child: const Center(
@@ -234,6 +234,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     builder: (context) => BasicDialog(
                       icon: const Icon(Icons.warning_rounded,
                           size: 50, color: Colors.red),
+                      title: "خطأ",
                       content: profileError.msg,
                       action: () {
                         Provider.of<ProfileState>(context).resetError();

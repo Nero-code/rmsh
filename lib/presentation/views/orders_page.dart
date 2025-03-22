@@ -15,7 +15,7 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<OrdersState>(context, listen: false);
     return RefreshIndicator(
-      onRefresh: () async => provider.getOrders(),
+      onRefresh: provider.refreshOrders,
       child: Consumer<OrdersState>(builder: (context, state, child) {
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());

@@ -19,7 +19,8 @@ class OrderWidget extends StatelessWidget {
           margin: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            // color: Theme.of(context).colorScheme.surfaceContainer,
+            color: const Color.fromARGB(171, 241, 241, 241),
           ),
           child: Material(
             color: Colors.transparent,
@@ -95,7 +96,12 @@ class OrderWidget extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    if (entity.message.isNotEmpty)
+                      Text(
+                        entity.message,
+                        style: const TextStyle(color: Colors.red),
+                      ),
                   ],
                 ),
               ),
