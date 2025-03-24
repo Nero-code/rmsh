@@ -8,6 +8,7 @@ import 'package:rmsh/domain/classes/product_item.dart';
 import 'package:rmsh/presentation/providers/cart_state.dart';
 import 'package:rmsh/presentation/providers/product_details_state.dart';
 import 'package:rmsh/presentation/widgets/box_botton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productId});
@@ -61,6 +62,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     final provider = Provider.of<ProductDetailsState>(context, listen: false);
     final cartProvider = Provider.of<CartState>(context, listen: false);
     return Scaffold(
@@ -78,8 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(productState.productFailure!.msg ??
-                    "حدث خطأ الرجاء اعادة المحاولة"),
+                Text(productState.productFailure!.msg ?? local.productErr),
                 IconButton(
                   onPressed: () {
                     provider.getProduct(widget.productId);
@@ -258,7 +259,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 }
                               : null,
                           icon: const Icon(Icons.add),
-                          label: const Text("اضافة للسلة"),
+                          label: Text(local.addToCart),
                         )
                       ],
                     ),

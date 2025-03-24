@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rmsh/core/constants/assets_names.dart';
 import 'package:rmsh/core/errors/failures.dart';
+import 'package:rmsh/presentation/dialogs/language_dialog.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/providers/product_list_state.dart';
+import 'package:rmsh/presentation/providers/settings_state.dart';
 import 'package:rmsh/presentation/views/product_details_screen.dart';
 import 'package:rmsh/presentation/views/profile_screen.dart';
 import 'package:rmsh/presentation/views/wishlist_screen.dart';
@@ -12,6 +14,7 @@ import 'package:rmsh/presentation/views/loading_page.dart';
 import 'package:rmsh/presentation/widgets/product_widget.dart';
 import 'package:rmsh/presentation/widgets/search_bar.dart';
 import 'package:rmsh/splash.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -48,6 +51,8 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     // final screenSize = MediaQuery.sizeOf(context);
+    final local = AppLocalizations.of(context)!;
+
     final provider = Provider.of<ProductListState>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -61,6 +66,7 @@ class _ProductsPageState extends State<ProductsPage> {
             // width: 70,
           ),
         ),
+
         backgroundColor: Theme.of(context).colorScheme.primary,
         shadowColor: Colors.black,
         elevation: 10,
@@ -183,11 +189,11 @@ class _ProductsPageState extends State<ProductsPage> {
               itemBuilder: (c) {
                 return [
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
                       children: [
                         // Icon(Icons.person),
-                        SizedBox(width: 5),
-                        Text("الحساب"),
+                        const SizedBox(width: 5),
+                        Text(local.profile),
                       ],
                     ),
                     onTap: () => Navigator.push(
@@ -196,11 +202,11 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                   ),
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
                       children: [
                         // Icon(Icons.bookmarks),
                         SizedBox(width: 5),
-                        Text("المفضلة"),
+                        Text(local.favs),
                       ],
                     ),
                     onTap: () => Navigator.push(
@@ -209,12 +215,32 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                   ),
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
+                      children: [
+                        // Icon(Icons.bookmarks),
+                        SizedBox(width: 5),
+                        Text(local.language),
+                      ],
+                    ),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => LanguageDialog(
+                        currentLang:
+                            Provider.of<SettingsState>(context, listen: false)
+                                .curretnLang
+                                .languageCode,
+                        onPositive: (lang) =>
+                            context.read<SettingsState>().setLang(lang),
+                      ),
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    child: Row(
                       children: [
                         // Icon(Icons.logout),
                         SizedBox(width: 5),
                         Text(
-                          "تسجيل الخروج",
+                          local.logout,
                           style: TextStyle(color: Colors.red),
                         ),
                       ],
@@ -223,18 +249,18 @@ class _ProductsPageState extends State<ProductsPage> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: const Text(
-                            "تسجيل الخروج",
+                          title: Text(
+                            local.logout,
                             textDirection: TextDirection.rtl,
                           ),
-                          content: const Text(
-                            "هل تريد تسجيل الخروج؟ قد تتعرض بياناتك للضياع",
+                          content: Text(
+                            local.logoutMessage,
                             textDirection: TextDirection.rtl,
                           ),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: const Text('الغاء'),
+                              child: Text(local.cancel),
                             ),
                             ElevatedButton(
                               onPressed: () async {

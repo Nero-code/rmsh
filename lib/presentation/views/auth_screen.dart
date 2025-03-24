@@ -8,6 +8,7 @@ import 'package:rmsh/presentation/dialogs/basic_dialog.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/views/auth_profile_screen.dart';
 import 'package:rmsh/presentation/views/loading_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -32,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
         (_) => showDialog(
           context: context,
           builder: (context) => BasicDialog(
-            title: "خطأ بالاتصال",
+            title: AppLocalizations.of(context)!.connectionErr,
             content: l.msg,
             action: SystemNavigator.pop,
           ),
@@ -49,6 +50,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
+    final local = AppLocalizations.of(context)!;
     // if (Provider.of<AuthState>(context).proccessDone) {
     //   // WidgetsBinding.instance
     //   //     .addPostFrameCallback((d) => Navigator.pop(context, true));
@@ -128,7 +130,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   color: Colors.red,
                                   size: 50,
                                 ),
-                                title: "حدث خطأ!",
+                                title: local.err,
                                 content: state.registerFailure?.msg,
                                 action: () {
                                   isdialogActive = false;
@@ -143,8 +145,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            "تسجيل الدخول",
+                          Text(
+                            local.register,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -201,7 +203,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             },
                             label: Center(
                               child: Text(
-                                state.isCodeSent ? "تأكيد" : "تسجيل",
+                                state.isCodeSent
+                                    ? local.verify
+                                    : local.register,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

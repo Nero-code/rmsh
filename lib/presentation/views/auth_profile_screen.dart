@@ -7,6 +7,7 @@ import 'package:rmsh/main.dart';
 import 'package:rmsh/presentation/dialogs/basic_dialog.dart';
 import 'package:rmsh/presentation/providers/profile_state.dart';
 import 'package:rmsh/presentation/views/loading_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthProfileScreen extends StatefulWidget {
   const AuthProfileScreen({super.key});
@@ -33,9 +34,10 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("الحساب")),
+        title: Center(child: Text(local.profile)),
       ),
       body: Stack(
         children: [
@@ -48,10 +50,10 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
-                      "الاسم",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    Text(
+                      local.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     TextFormField(
                       controller: nameCtl,
@@ -61,7 +63,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        hintText: "الاسم الثلاثي",
+                        hintText: local.nameHint,
                         hintTextDirection: TextDirection.rtl,
                         hintStyle: const TextStyle(color: Colors.grey),
                         fillColor: Colors.grey.shade200,
@@ -69,16 +71,16 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                       ),
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return "الرجاء تعبئة الحقل";
+                          return local.emptyFieldErrorMsg;
                         }
                         return null;
                       },
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      "رقم الهاتف",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    Text(
+                      local.phone,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     TextFormField(
                       controller: phoneCtl,
@@ -104,7 +106,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                       maxLength: 10,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return "الرجاء تعبئة الحقل";
+                          return local.emptyFieldErrorMsg;
                         }
 
                         return null;
@@ -116,8 +118,8 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                       children: [
                         FilterChip(
                           selected: isMale ?? false,
-                          label: const Text(
-                            "ذكر",
+                          label: Text(
+                            local.male,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -135,8 +137,8 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                         ),
                         FilterChip(
                           selected: isMale != null ? !(isMale!) : false,
-                          label: const Text(
-                            "انثى",
+                          label: Text(
+                            local.female,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -156,8 +158,8 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      "تاريخ الميلاد",
+                    Text(
+                      local.birth,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -179,7 +181,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                       label: Text(
                         birthDate != null
                             ? "${birthDate!.day}/${birthDate!.month}/${birthDate!.year}"
-                            : 'اختر تاريخ',
+                            : local.chooseDate,
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
@@ -188,10 +190,10 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         label: SizedBox(
                             width: MediaQuery.sizeOf(context).width,
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "حفظ",
-                                style: TextStyle(
+                                local.save,
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -203,9 +205,9 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                               birthDate == null) {
                             ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 content: Text(
-                                  "الرجاء تعبة جميع الحقول!",
+                                  local.emptyFieldErrorMsg,
                                   textDirection: TextDirection.rtl,
                                 ),
                               ),
@@ -234,7 +236,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     builder: (context) => BasicDialog(
                       icon: const Icon(Icons.warning_rounded,
                           size: 50, color: Colors.red),
-                      title: "خطأ",
+                      title: local.err,
                       content: profileError.msg,
                       action: () {
                         Provider.of<ProfileState>(context).resetError();
