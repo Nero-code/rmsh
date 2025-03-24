@@ -48,9 +48,9 @@ class ProductDetailsState with ChangeNotifier {
   @override
   String toString() {
     return """
-    \n< ProductDetailsState >
-    hasProduct: ${product != null}
-    itemsByColor: $itemsByColor
+    \n--- ProductDetailsState >
+    --- hasProduct: ${product != null}
+    --- itemsByColor: $itemsByColor
     
     """;
   }

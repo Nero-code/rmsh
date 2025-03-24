@@ -1,5 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/providers/cart_state.dart';
@@ -14,9 +17,22 @@ import 'package:rmsh/presentation/views/orders_page.dart';
 import 'package:rmsh/splash.dart';
 import 'injection_dependency.dart';
 
+Future<void> notificationHandler(RemoteMessage message) async {
+  print("Background Service");
+  print(message.toMap());
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // final nservice = NotificationService().init();
   await init();
+
+  FirebaseMessaging.onBackgroundMessage(notificationHandler);
+  FirebaseMessaging.onMessage.listen((e) {
+    print("Foreground Notification");
+    print(e.toMap());
+  });
 
   runApp(const MyApp());
 }
@@ -26,8 +42,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFF560606)));
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) {
@@ -100,9 +114,19 @@ class _MainContainerState extends State<MainContainer> {
 
   void onDestinationChanged(int index) {
     setState(() {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness:
+            index == 0 ? Brightness.light : Brightness.dark,
+      ));
       _selectedIndex = index;
     });
   }
+
+  // @override
+  // void dispose() {
+  //   sl.get<NotificationService>().dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

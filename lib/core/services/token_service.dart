@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:rmsh/core/constants/constants.dart';
 import 'package:rmsh/data/models/user_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,7 +84,10 @@ class TokenService {
       final res = await _client.post("$API" "$HTTP_REFRESH_TOKEN",
           options: Options(
               headers: {'Authorization': "Bearer ${_session!.accessToken}"}),
-          data: {"refresh": refreshToken});
+          data: {
+            "refresh": refreshToken,
+            "device_token": await FirebaseMessaging.instance.getToken()
+          });
       if (res.statusCode == 200 || res.statusCode == 201) {
         final userDto = UserDto.fromJson(res.data);
         await _storage.setString('refresh', userDto.refreshToken);

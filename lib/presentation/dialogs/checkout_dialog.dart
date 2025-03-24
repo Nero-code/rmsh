@@ -85,6 +85,7 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
             TextField(
               maxLength: 10,
               maxLines: 1,
+              textAlign: TextAlign.center,
               controller: couponCtl,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -93,7 +94,8 @@ class _CheckoutDialogState extends State<CheckoutDialog> {
                 ),
                 filled: true,
                 fillColor: const Color.fromARGB(255, 240, 240, 240),
-                hintText: "xxx xxx",
+                hintText: "xxx xxxx xxx",
+                hintStyle: const TextStyle(color: Colors.grey),
               ),
             ),
             if (widget.error != null)

@@ -10,6 +10,7 @@ import 'package:rmsh/presentation/views/profile_screen.dart';
 import 'package:rmsh/presentation/views/wishlist_screen.dart';
 import 'package:rmsh/presentation/views/loading_page.dart';
 import 'package:rmsh/presentation/widgets/product_widget.dart';
+import 'package:rmsh/presentation/widgets/search_bar.dart';
 import 'package:rmsh/splash.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   String? selectedCategory, searchQuery;
-  bool isSearchMode = false;
+  // bool isSearchMode = false;
   final searchController = TextEditingController();
 
   void addPostFrameCallback(void Function() callback) {
@@ -30,24 +31,23 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   void initState() {
-    searchController.addListener(() {
-      Provider.of<ProductListState>(context, listen: false).searchMode =
-          searchController.text.isNotEmpty;
-      // setState(() {});
-    });
+    // searchController.addListener(() {
+    //   Provider.of<ProductListState>(context, listen: false).searchMode =
+    //       searchController.text.isNotEmpty;
+    //   // setState(() {});
+    // });
     super.initState();
   }
 
   @override
   void dispose() {
     searchController.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.sizeOf(context);
+    // final screenSize = MediaQuery.sizeOf(context);
     final provider = Provider.of<ProductListState>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -117,59 +117,69 @@ class _ProductsPageState extends State<ProductsPage> {
         // ),
 
         actions: [
-          SizedBox(
-            width: screenSize.width * 0.7,
-            height: screenSize.height * 0.1,
-            child: Center(
-              child: SizedBox(
-                height: 30,
-                child: TextField(
-                  onTapOutside: (event) =>
-                      FocusScope.of(context).requestFocus(FocusNode()),
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white54,
-                    filled: true,
-                    prefixIcon: const Icon(Icons.search),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 15.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1000),
-                      borderSide: BorderSide.none,
-                    ),
-                    suffixIcon: Selector<ProductListState, bool>(
-                        selector: (context, state) => state.isSearchMode,
-                        builder: (context, isSearchMode, child) {
-                          return isSearchMode
-                              ? IconButton(
-                                  splashRadius: 20,
-                                  iconSize: 20,
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {
-                                    searchQuery = null;
-                                    searchController.clear();
-                                    addPostFrameCallback(() =>
-                                        provider.getAllProducts(
-                                            selectedCategory, searchQuery));
-                                  },
-                                  icon: const Icon(Icons.close, size: 20))
-                              : const SizedBox();
-                        }),
-                    hintText: "البحث",
-                  ),
-                  onSubmitted: (value) {
-                    searchQuery = value;
-                    print("$searchQuery : $value");
-                    addPostFrameCallback(
-                        () => provider.getAllProducts(selectedCategory, value));
-                  },
-                ),
-              ),
-            ),
+          // SizedBox(
+          //   width: screenSize.width * 0.7,
+          //   height: screenSize.height * 0.1,
+          //   child: Center(
+          //     child: SizedBox(
+          //       height: 30,
+          //       child: TextField(
+          //         onTapOutside: (event) =>
+          //             FocusScope.of(context).requestFocus(FocusNode()),
+          //         controller: searchController,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.white54,
+          //           filled: true,
+          //           prefixIcon: const Icon(Icons.search),
+          //           contentPadding:
+          //               const EdgeInsets.symmetric(horizontal: 15.0),
+          //           border: OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(1000),
+          //             borderSide: BorderSide.none,
+          //           ),
+          //           suffixIcon: Selector<ProductListState, bool>(
+          //               selector: (context, state) => state.isSearchMode,
+          //               builder: (context, isSearchMode, child) {
+          //                 return isSearchMode
+          //                     ? IconButton(
+          //                         splashRadius: 20,
+          //                         iconSize: 20,
+          //                         padding: EdgeInsets.zero,
+          //                         onPressed: () {
+          //                           searchQuery = null;
+          //                           searchController.clear();
+          //                           addPostFrameCallback(() =>
+          //                               provider.getAllProducts(
+          //                                   selectedCategory, searchQuery));
+          //                         },
+          //                         icon: const Icon(Icons.close, size: 20))
+          //                     : const SizedBox();
+          //               }),
+          //           hintText: "البحث",
+          //         ),
+          //         onSubmitted: (value) {
+          //           searchQuery = value;
+          //           print("$searchQuery : $value");
+          //           addPostFrameCallback(
+          //               () => provider.getAllProducts(selectedCategory, value));
+          //         },
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          SearchBarWidget(
+            onClose: () => searchQuery = null,
+            onSubmit: (query) {
+              searchQuery = query;
+              print("$searchQuery : $query");
+              addPostFrameCallback(
+                  () => provider.getAllProducts(selectedCategory, query));
+            },
           ),
           PopupMenuButton(
               icon: const Icon(Icons.menu, color: Colors.white),
               offset: const Offset(0, 45),
+              color: Colors.white,
               itemBuilder: (c) {
                 return [
                   PopupMenuItem<int>(

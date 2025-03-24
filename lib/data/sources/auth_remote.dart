@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rmsh/core/constants/constants.dart';
 import 'package:rmsh/core/errors/exceptions.dart';
@@ -21,6 +22,7 @@ class AuthRemoteSourceImpl implements AuthRemoteSource {
 
   @override
   Future<bool> logout() async {
+    await FirebaseMessaging.instance.deleteToken();
     return await _storage.clear();
   }
 
@@ -74,23 +76,19 @@ class AuthRemoteSourceImpl implements AuthRemoteSource {
     throw EmailRegistrationException();
   }
 
-  /// {
-  ///
-  /// > "message": "User registered",
-  ///
-  /// > "refresh": "t.o.k.e.n",
-  ///
-  /// > "access": "t.o.k.e.n"
-  ///
-  /// }
   @override
   Future<UserDto> verifyCode(String email, String code) async {
     final res = await _clientHelper.client.post(
       "$API" "$HTTP_VERIFY_CODE",
-      data: {'email': email, 'otp_code': code},
+      data: {
+        'email': email,
+        'otp_code': code,
+        'device_token': await FirebaseMessaging.instance.getToken(),
+      },
     );
-
     if (kDebugMode) {
+      print(
+          'device_token ${await FirebaseMessaging.instance.getToken() ?? "null"}');
       print("verifyCode code: ${res.statusCode}");
       print("verifyCode body: ${res.data}");
     }

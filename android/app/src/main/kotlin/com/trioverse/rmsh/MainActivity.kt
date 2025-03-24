@@ -1,4 +1,4 @@
-package com.example.rmsh
+package com.trioverse.rmsh
 
 import io.flutter.embedding.android.FlutterActivity
 

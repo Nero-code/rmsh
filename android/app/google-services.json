@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "861460306047",
+    "project_id": "eremsh",
+    "storage_bucket": "eremsh.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861460306047:android:094ec751f8d9c20137c74a",
+        "android_client_info": {
+          "package_name": "com.trioverse.rmsh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4BIHfP2Up1iueSUIFfAjSDYrWzj4AcXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

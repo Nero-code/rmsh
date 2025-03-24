@@ -19,7 +19,7 @@ class CartRepoImple implements CartRepo {
       try {
         await _remoteSource.chackout(OrderModel.fromEntity(order));
         return const Right(unit);
-      } on EmptyResponseException {
+      } on BadRequestException {
         return const Left(CouponNotValidFailure());
       } catch (e) {
         print(e.toString());
