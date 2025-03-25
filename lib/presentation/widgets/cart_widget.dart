@@ -49,7 +49,10 @@ class CartWidget extends StatelessWidget {
                           child: const Text("لا"),
                         ),
                         ElevatedButton(
-                          onPressed: removeItem,
+                          onPressed: () {
+                            removeItem();
+                            Navigator.pop(context);
+                          },
                           child: const Text("نعم"),
                         ),
                       ],

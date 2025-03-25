@@ -6,6 +6,7 @@ import 'package:rmsh/domain/classes/profile.dart';
 import 'package:rmsh/presentation/dialogs/basic_dialog.dart';
 import 'package:rmsh/presentation/providers/profile_state.dart';
 import 'package:rmsh/presentation/views/loading_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -38,9 +39,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("الحساب")),
+        title: Center(child: Text(local.profile)),
         actions: const [SizedBox(width: 50)],
       ),
       body: Stack(
@@ -80,9 +82,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
-                        "الاسم",
-                        style: TextStyle(
+                      Text(
+                        local.name,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextFormField(
@@ -93,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          hintText: "الاسم الثلاثي",
+                          hintText: local.nameHint,
                           hintTextDirection: TextDirection.rtl,
                           hintStyle: const TextStyle(color: Colors.grey),
                           fillColor: Colors.grey.shade200,
@@ -101,15 +103,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         validator: (val) {
                           if (val == null || val.isEmpty) {
-                            return "الرجاء تعبئة الحقل";
+                            return local.emptyFieldErrorMsg;
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 20),
-                      const Text(
-                        "رقم الهاتف",
-                        style: TextStyle(
+                      Text(
+                        local.phone,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextFormField(
@@ -136,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         maxLength: 10,
                         validator: (val) {
                           if (val == null || val.isEmpty) {
-                            return "الرجاء تعبئة الحقل";
+                            return local.emptyFieldErrorMsg;
                           }
 
                           return null;
@@ -148,9 +150,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           FilterChip(
                             selected: isMale ?? false,
-                            label: const Text(
-                              "ذكر",
-                              style: TextStyle(
+                            label: Text(
+                              local.male,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -167,9 +169,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           FilterChip(
                             selected: isMale != null ? !(isMale!) : false,
-                            label: const Text(
-                              "انثى",
-                              style: TextStyle(
+                            label: Text(
+                              local.female,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -188,9 +190,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Text(
-                        "تاريخ الميلاد",
-                        style: TextStyle(
+                      Text(
+                        local.birth,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       ActionChip(
@@ -212,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: Text(
                           birthDate != null
                               ? "${birthDate!.day}/${birthDate!.month}/${birthDate!.year}"
-                              : 'اختر تاريخ',
+                              : local.chooseDate,
                           style: const TextStyle(fontSize: 18),
                         ),
                       ),
@@ -221,10 +223,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         label: SizedBox(
                             width: MediaQuery.sizeOf(context).width,
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "حفظ",
-                                style: TextStyle(
+                                local.save,
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),

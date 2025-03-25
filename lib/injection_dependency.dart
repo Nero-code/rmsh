@@ -35,11 +35,9 @@ Future<void> init() async {
   // client.interceptors.add(InterceptorsWrapper(
   //   onError: (res, handler) {
   //     // handler.reject(EmptyResponseException());
-
   //     // if (res.response == null) {
   //     //   throw Exception(res.error);
   //     // }
-
   //     // switch (res.response!.statusCode) {
   //     //   case HttpStatus.notFound:
   //     //   handler.resolve(Response(requestOptions: RequestOptions(),statusCode: ));
@@ -65,6 +63,10 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => ClientHelper(client: sl(), tokenService: sl()),
   );
+
+  // final ns = NotificationService();
+  // await ns.init();
+  // sl.registerLazySingleton<NotificationService>(() => ns);
 
   //  S O U R C E S
   sl.registerLazySingleton<AuthRemoteSource>(

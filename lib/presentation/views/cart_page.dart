@@ -33,14 +33,10 @@ class CartPage extends StatelessWidget {
               for (int i = 0; i < state.items.length; i++) ...[
                 CartWidget(
                   item: state.items[i],
-                  // hasError: i == 4 ? "" : null,
                   removeItem: () => state.removeFromCart(i),
                   reduce: (val) => state.changeItemCount(i, val),
                   add: (val) => state.changeItemCount(i, val),
                 ),
-                // SizedBox(
-                //   height: 5.0,
-                // )
                 if (i != 4) Divider(color: Colors.grey.shade300),
               ]
             ],
@@ -103,7 +99,7 @@ class CartPage extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         backgroundColor: Colors.red,
-                        duration: Durations.extralong4,
+                        // duration: Durations.extralong4,
                       ),
                     );
                     showDialog(
@@ -132,20 +128,20 @@ class CartPage extends StatelessWidget {
                       ),
                     );
                   });
-                } else {
-                  // addPostFrameCallback(() {
-                  //   ScaffoldMessenger.of(context).clearSnackBars();
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     SnackBar(
-                  //       content: Text(
-                  //         failure?.msg ?? "${failure.runtimeType}",
-                  //         style: const TextStyle(color: Colors.white),
-                  //       ),
-                  //       backgroundColor: Colors.red,
-                  //       duration: Durations.extralong4,
-                  //     ),
-                  //   );
-                  // });
+                } else if (failure != null) {
+                  addPostFrameCallback(() {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "حدث خطأ: ${failure.msg}",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.red,
+                        // duration: Durations.extralong4,
+                      ),
+                    );
+                  });
                 }
                 return const SizedBox();
               }),

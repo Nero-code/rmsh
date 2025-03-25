@@ -74,11 +74,18 @@ class ClientHelper {
     void Function(Map<String, dynamic> body)? orElse,
   }) async {
     print(API + urlPart);
-    final res = await _client.post(
-      "$API" "$urlPart",
-      options: Options(headers: await getHeader()),
-      data: body,
-    );
+
+    final Response<Map> res;
+    try {
+      res = await _client.post(
+        "$API" "$urlPart",
+        options: Options(headers: await getHeader()),
+        data: body,
+      );
+    } catch (e) {
+      if (e is DioException) _catchException(e);
+      rethrow;
+    }
     print(res.realUri);
     print("postHandler code: ${res.statusCode}");
     print("postHandler body: ${res.data}");
@@ -88,10 +95,10 @@ class ClientHelper {
         // return fromJson(jsonDecode(
         //     (res.data))[dataNodeInResponse]);
 
-        return fromJson(res.data[dataNodeInResponse]);
+        return fromJson(res.data![dataNodeInResponse]);
       }
       if (orElse != null) {
-        orElse(res.data);
+        orElse(res.data as Map<String, dynamic>);
       }
     }
 
@@ -102,11 +109,17 @@ class ClientHelper {
     String urlPart,
     Map<String, dynamic> body,
   ) async {
-    final res = await _client.put(
-      "$API" "$urlPart",
-      options: Options(headers: await getHeader()),
-      data: body,
-    );
+    final Response<Map> res;
+    try {
+      res = await _client.put(
+        "$API" "$urlPart",
+        options: Options(headers: await getHeader()),
+        data: body,
+      );
+    } catch (e) {
+      if (e is DioException) _catchException(e);
+      rethrow;
+    }
 
     print("putHandler code: ${res.statusCode}");
     print("putHandler body: ${res.data}");
@@ -116,9 +129,15 @@ class ClientHelper {
     String urlPart,
     Map<String, dynamic> body,
   ) async {
-    final res = await _client.delete("$API" "$urlPart",
-        options: Options(headers: await getHeader()), data: body);
+    final Response<Map> res;
 
+    try {
+      res = await _client.delete("$API" "$urlPart",
+          options: Options(headers: await getHeader()), data: body);
+    } catch (e) {
+      if (e is DioException) _catchException(e);
+      rethrow;
+    }
     print("deleteHandler code: ${res.statusCode}");
     print("deleteHandler body: ${res.data}");
 
@@ -178,7 +197,7 @@ void _catchException(DioException res) {
     case HttpStatus.notFound:
       throw EmptyResponseException();
     case HttpStatus.badRequest:
-      throw DuplicateActionException();
+      throw BadRequestException();
     case HttpStatus.badGateway:
       throw ServerDownException();
     default:

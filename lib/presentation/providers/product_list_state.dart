@@ -163,12 +163,12 @@ class ProductListState with ChangeNotifier {
   @override
   String toString() {
     return """
-    \n<-- ProductListState -->\n
-    isLoading = $isLoading\n
-    getAllError = $getAllError\n
-    hasReachedTheEnd = $hasReachedTheEnd\n
-    loadingMore = $loadingMore\n
-    hasRequested = $hasRequested
+    \n--- ProductListState \n
+    isLoading --------- = $isLoading
+    getAllError ------- = $getAllError
+    hasReachedTheEnd -- = $hasReachedTheEnd
+    loadingMore ------- = $loadingMore
+    hasRequested ------ = $hasRequested
     """;
   }
 }

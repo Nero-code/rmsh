@@ -31,7 +31,7 @@ class ProductWidget extends StatelessWidget {
       decoration: BoxDecoration(
         // color: const Color.fromARGB(255, 236, 238, 241),
         // color: Theme.of(context).colorScheme.surfaceContainer,
-        color: Color.fromARGB(108, 241, 241, 241),
+        color: const Color.fromARGB(108, 241, 241, 241),
         borderRadius: BorderRadius.circular(15),
         // border: product.p.offerPrice > 0
         //     ? Border.all(color: Colors.amber, width: 3.0)

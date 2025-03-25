@@ -1,5 +1,5 @@
 //  GENERAL EXCEPTIONS
-class OfflineException implements Exception {} // PRIMARY
+// class OfflineException implements Exception {} // SECONDARY
 
 class ServerDownException implements Exception {} // PRIMARY
 
@@ -20,4 +20,4 @@ class BadRequestException implements Exception {} // PRIMARY
 
 class SessionGenerationException implements Exception {} // PRIMARY
 
-class DuplicateActionException implements Exception {} // PRIMARY
+// class DuplicateActionException implements Exception {} // SECONDARY

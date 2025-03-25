@@ -10,7 +10,9 @@ import 'package:rmsh/presentation/views/profile_screen.dart';
 import 'package:rmsh/presentation/views/wishlist_screen.dart';
 import 'package:rmsh/presentation/views/loading_page.dart';
 import 'package:rmsh/presentation/widgets/product_widget.dart';
+import 'package:rmsh/presentation/widgets/search_bar.dart';
 import 'package:rmsh/splash.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -21,7 +23,7 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   String? selectedCategory, searchQuery;
-  bool isSearchMode = false;
+  // bool isSearchMode = false;
   final searchController = TextEditingController();
 
   void addPostFrameCallback(void Function() callback) {
@@ -30,24 +32,25 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   void initState() {
-    searchController.addListener(() {
-      Provider.of<ProductListState>(context, listen: false).searchMode =
-          searchController.text.isNotEmpty;
-      // setState(() {});
-    });
+    // searchController.addListener(() {
+    //   Provider.of<ProductListState>(context, listen: false).searchMode =
+    //       searchController.text.isNotEmpty;
+    //   // setState(() {});
+    // });
     super.initState();
   }
 
   @override
   void dispose() {
     searchController.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.sizeOf(context);
+    // final screenSize = MediaQuery.sizeOf(context);
+    final local = AppLocalizations.of(context)!;
+
     final provider = Provider.of<ProductListState>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -61,6 +64,7 @@ class _ProductsPageState extends State<ProductsPage> {
             // width: 70,
           ),
         ),
+
         backgroundColor: Theme.of(context).colorScheme.primary,
         shadowColor: Colors.black,
         elevation: 10,
@@ -117,67 +121,77 @@ class _ProductsPageState extends State<ProductsPage> {
         // ),
 
         actions: [
-          SizedBox(
-            width: screenSize.width * 0.7,
-            height: screenSize.height * 0.1,
-            child: Center(
-              child: SizedBox(
-                height: 30,
-                child: TextField(
-                  onTapOutside: (event) =>
-                      FocusScope.of(context).requestFocus(FocusNode()),
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white54,
-                    filled: true,
-                    prefixIcon: const Icon(Icons.search),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 15.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1000),
-                      borderSide: BorderSide.none,
-                    ),
-                    suffixIcon: Selector<ProductListState, bool>(
-                        selector: (context, state) => state.isSearchMode,
-                        builder: (context, isSearchMode, child) {
-                          return isSearchMode
-                              ? IconButton(
-                                  splashRadius: 20,
-                                  iconSize: 20,
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {
-                                    searchQuery = null;
-                                    searchController.clear();
-                                    addPostFrameCallback(() =>
-                                        provider.getAllProducts(
-                                            selectedCategory, searchQuery));
-                                  },
-                                  icon: const Icon(Icons.close, size: 20))
-                              : const SizedBox();
-                        }),
-                    hintText: "البحث",
-                  ),
-                  onSubmitted: (value) {
-                    searchQuery = value;
-                    print("$searchQuery : $value");
-                    addPostFrameCallback(
-                        () => provider.getAllProducts(selectedCategory, value));
-                  },
-                ),
-              ),
-            ),
+          // SizedBox(
+          //   width: screenSize.width * 0.7,
+          //   height: screenSize.height * 0.1,
+          //   child: Center(
+          //     child: SizedBox(
+          //       height: 30,
+          //       child: TextField(
+          //         onTapOutside: (event) =>
+          //             FocusScope.of(context).requestFocus(FocusNode()),
+          //         controller: searchController,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.white54,
+          //           filled: true,
+          //           prefixIcon: const Icon(Icons.search),
+          //           contentPadding:
+          //               const EdgeInsets.symmetric(horizontal: 15.0),
+          //           border: OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(1000),
+          //             borderSide: BorderSide.none,
+          //           ),
+          //           suffixIcon: Selector<ProductListState, bool>(
+          //               selector: (context, state) => state.isSearchMode,
+          //               builder: (context, isSearchMode, child) {
+          //                 return isSearchMode
+          //                     ? IconButton(
+          //                         splashRadius: 20,
+          //                         iconSize: 20,
+          //                         padding: EdgeInsets.zero,
+          //                         onPressed: () {
+          //                           searchQuery = null;
+          //                           searchController.clear();
+          //                           addPostFrameCallback(() =>
+          //                               provider.getAllProducts(
+          //                                   selectedCategory, searchQuery));
+          //                         },
+          //                         icon: const Icon(Icons.close, size: 20))
+          //                     : const SizedBox();
+          //               }),
+          //           hintText: "البحث",
+          //         ),
+          //         onSubmitted: (value) {
+          //           searchQuery = value;
+          //           print("$searchQuery : $value");
+          //           addPostFrameCallback(
+          //               () => provider.getAllProducts(selectedCategory, value));
+          //         },
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          SearchBarWidget(
+            onClose: () => searchQuery = null,
+            onSubmit: (query) {
+              searchQuery = query;
+              print("$searchQuery : $query");
+              addPostFrameCallback(
+                  () => provider.getAllProducts(selectedCategory, query));
+            },
           ),
           PopupMenuButton(
               icon: const Icon(Icons.menu, color: Colors.white),
               offset: const Offset(0, 45),
+              color: Colors.white,
               itemBuilder: (c) {
                 return [
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
                       children: [
                         // Icon(Icons.person),
-                        SizedBox(width: 5),
-                        Text("الحساب"),
+                        const SizedBox(width: 5),
+                        Text(local.profile),
                       ],
                     ),
                     onTap: () => Navigator.push(
@@ -186,11 +200,11 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                   ),
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
                       children: [
                         // Icon(Icons.bookmarks),
-                        SizedBox(width: 5),
-                        Text("المفضلة"),
+                        const SizedBox(width: 5),
+                        Text(local.favs),
                       ],
                     ),
                     onTap: () => Navigator.push(
@@ -198,14 +212,34 @@ class _ProductsPageState extends State<ProductsPage> {
                       MaterialPageRoute(builder: (c) => const WishlistScreen()),
                     ),
                   ),
+                  // PopupMenuItem<int>(
+                  //   child: Row(
+                  //     children: [
+                  //       // Icon(Icons.bookmarks),
+                  //       const SizedBox(width: 5),
+                  //       Text(local.language),
+                  //     ],
+                  //   ),
+                  //   onTap: () => showDialog(
+                  //     context: context,
+                  //     builder: (context) => LanguageDialog(
+                  //       currentLang:
+                  //           Provider.of<SettingsState>(context, listen: false)
+                  //               .curretnLang
+                  //               .languageCode,
+                  //       onPositive: (lang) =>
+                  //           context.read<SettingsState>().setLang(lang),
+                  //     ),
+                  //   ),
+                  // ),
                   PopupMenuItem<int>(
-                    child: const Row(
+                    child: Row(
                       children: [
                         // Icon(Icons.logout),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
-                          "تسجيل الخروج",
-                          style: TextStyle(color: Colors.red),
+                          local.logout,
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ],
                     ),
@@ -213,30 +247,27 @@ class _ProductsPageState extends State<ProductsPage> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: const Text(
-                            "تسجيل الخروج",
+                          title: Text(
+                            local.logout,
                             textDirection: TextDirection.rtl,
                           ),
-                          content: const Text(
-                            "هل تريد تسجيل الخروج؟ قد تتعرض بياناتك للضياع",
+                          content: Text(
+                            local.logoutMessage,
                             textDirection: TextDirection.rtl,
                           ),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: const Text('الغاء'),
+                              child: Text(local.cancel),
                             ),
                             ElevatedButton(
                               onPressed: () async {
                                 Navigator.pop(context);
-                                print("before logout()");
                                 final success = await Provider.of<AuthState>(
                                         context,
                                         listen: false)
                                     .logout();
-                                print("after logout()");
                                 if (context.mounted && success) {
-                                  print("1st if");
                                   // Navigator.pop(context);
                                   Navigator.pushReplacement(
                                     context,
@@ -246,7 +277,6 @@ class _ProductsPageState extends State<ProductsPage> {
                                   return;
                                 }
                                 if (context.mounted) {
-                                  print("2nd if");
                                   Navigator.pop(context);
                                 }
                               },

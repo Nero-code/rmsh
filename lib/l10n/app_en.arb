@@ -1,0 +1,48 @@
+{
+    "hello": "Hello",
+    "home": "Home",
+    "cart": "Cart",
+    "orders": "Orders",
+    "search": "Search",
+
+    "addToCart": "Add to cart",
+    
+    "profile": "Profile",
+    "favs": "Favourites",
+    "language": "Language",
+    "chooseLang": "Choose Language",
+
+    "logout": "Logout",
+    "logoutMessage": "Are you sure? your data may be deleted.",
+
+    "name": "Name",
+    "nameHint": "your name here",
+    "phone": "Phone Number",
+    "male": "Male",
+    "female": "Female",
+    "birth": "Date of birth",
+    "chooseDate": "Choose Date",
+    "save": "Save",
+
+    "emptyFieldErrorMsg": "Don't leave field empty",
+
+    "register": "Register",
+    "verify": "Verify Code",
+
+    "add": "Add",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "cancel": "Cancel",
+    
+    "gotIt": "Got it",
+    
+    "err": "Error occurred!",
+    "couponErr": "Wrong Coupon",
+    "loadingErr": "Error while loading",
+    "cancelOrderErr": "Couldn't cancel order",
+    "cancelOrderErrMsg": "Your order could not be canceled try again later",
+    "productErr": "Error in loading product data",
+    "connectionErr": "Connection Error"
+
+}
