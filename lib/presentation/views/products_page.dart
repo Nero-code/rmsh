@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rmsh/core/constants/assets_names.dart';
 import 'package:rmsh/core/errors/failures.dart';
-import 'package:rmsh/presentation/dialogs/language_dialog.dart';
+// import 'package:rmsh/presentation/dialogs/language_dialog.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/providers/product_list_state.dart';
-import 'package:rmsh/presentation/providers/settings_state.dart';
+// import 'package:rmsh/presentation/providers/settings_state.dart';
 import 'package:rmsh/presentation/views/product_details_screen.dart';
 import 'package:rmsh/presentation/views/profile_screen.dart';
 import 'package:rmsh/presentation/views/wishlist_screen.dart';
@@ -214,26 +214,26 @@ class _ProductsPageState extends State<ProductsPage> {
                       MaterialPageRoute(builder: (c) => const WishlistScreen()),
                     ),
                   ),
-                  PopupMenuItem<int>(
-                    child: Row(
-                      children: [
-                        // Icon(Icons.bookmarks),
-                        SizedBox(width: 5),
-                        Text(local.language),
-                      ],
-                    ),
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => LanguageDialog(
-                        currentLang:
-                            Provider.of<SettingsState>(context, listen: false)
-                                .curretnLang
-                                .languageCode,
-                        onPositive: (lang) =>
-                            context.read<SettingsState>().setLang(lang),
-                      ),
-                    ),
-                  ),
+                  // PopupMenuItem<int>(
+                  //   child: Row(
+                  //     children: [
+                  //       // Icon(Icons.bookmarks),
+                  //       SizedBox(width: 5),
+                  //       Text(local.language),
+                  //     ],
+                  //   ),
+                  //   onTap: () => showDialog(
+                  //     context: context,
+                  //     builder: (context) => LanguageDialog(
+                  //       currentLang:
+                  //           Provider.of<SettingsState>(context, listen: false)
+                  //               .curretnLang
+                  //               .languageCode,
+                  //       onPositive: (lang) =>
+                  //           context.read<SettingsState>().setLang(lang),
+                  //     ),
+                  //   ),
+                  // ),
                   PopupMenuItem<int>(
                     child: Row(
                       children: [
