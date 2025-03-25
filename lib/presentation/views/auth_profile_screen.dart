@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                           selected: isMale ?? false,
                           label: Text(
                             local.male,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -139,7 +139,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                           selected: isMale != null ? !(isMale!) : false,
                           label: Text(
                             local.female,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<AuthProfileScreen> {
                     Text(
                       local.birth,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     ActionChip(
                       side: BorderSide.none,

@@ -84,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         local.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextFormField(
@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 20),
                       Text(
                         local.phone,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       TextFormField(
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             selected: isMale ?? false,
                             label: Text(
                               local.male,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -171,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             selected: isMale != null ? !(isMale!) : false,
                             label: Text(
                               local.female,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -192,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 20),
                       Text(
                         local.birth,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       ActionChip(
@@ -226,7 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Center(
                               child: Text(
                                 local.save,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),

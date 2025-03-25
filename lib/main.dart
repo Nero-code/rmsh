@@ -20,8 +20,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'injection_dependency.dart';
 
 Future<void> notificationHandler(RemoteMessage message) async {
-  print("Background Service");
-  print(message.toMap());
+  if (kDebugMode) {
+    print("Background Service");
+    print(message.toMap());
+  }
 }
 
 void main() async {
@@ -106,7 +108,8 @@ class MyApp extends StatelessWidget {
             locale: state.curretnLang,
             debugShowCheckedModeBanner: kDebugMode,
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF560606)),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: const Color(0xFF560606)),
               useMaterial3: true,
             ),
             home: child,
@@ -146,6 +149,7 @@ class _MainContainerState extends State<MainContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     return Scaffold(
       body: [
         const ProductsPage(),
@@ -162,21 +166,21 @@ class _MainContainerState extends State<MainContainer> {
                 Icons.home,
                 color: Colors.grey.shade200,
               ),
-              label: "الرئيسية"),
+              label: local.home),
           NavigationDestination(
               icon: const Icon(Icons.shopping_cart_outlined),
               selectedIcon: Icon(
                 Icons.shopping_cart,
                 color: Colors.grey.shade200,
               ),
-              label: "السلة"),
+              label: local.cart),
           NavigationDestination(
               icon: const Icon(Icons.sticky_note_2_outlined),
               selectedIcon: Icon(
                 Icons.sticky_note_2_sharp,
                 color: Colors.grey.shade200,
               ),
-              label: "الطلبات"),
+              label: local.orders),
         ],
         selectedIndex: _selectedIndex,
         onDestinationSelected: onDestinationChanged,

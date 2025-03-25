@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rmsh/core/constants/assets_names.dart';
 import 'package:rmsh/core/errors/failures.dart';
-// import 'package:rmsh/presentation/dialogs/language_dialog.dart';
 import 'package:rmsh/presentation/providers/auth_state.dart';
 import 'package:rmsh/presentation/providers/product_list_state.dart';
-// import 'package:rmsh/presentation/providers/settings_state.dart';
 import 'package:rmsh/presentation/views/product_details_screen.dart';
 import 'package:rmsh/presentation/views/profile_screen.dart';
 import 'package:rmsh/presentation/views/wishlist_screen.dart';
@@ -205,7 +203,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     child: Row(
                       children: [
                         // Icon(Icons.bookmarks),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(local.favs),
                       ],
                     ),
@@ -218,7 +216,7 @@ class _ProductsPageState extends State<ProductsPage> {
                   //   child: Row(
                   //     children: [
                   //       // Icon(Icons.bookmarks),
-                  //       SizedBox(width: 5),
+                  //       const SizedBox(width: 5),
                   //       Text(local.language),
                   //     ],
                   //   ),
@@ -238,10 +236,10 @@ class _ProductsPageState extends State<ProductsPage> {
                     child: Row(
                       children: [
                         // Icon(Icons.logout),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           local.logout,
-                          style: TextStyle(color: Colors.red),
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ],
                     ),
@@ -265,14 +263,11 @@ class _ProductsPageState extends State<ProductsPage> {
                             ElevatedButton(
                               onPressed: () async {
                                 Navigator.pop(context);
-                                print("before logout()");
                                 final success = await Provider.of<AuthState>(
                                         context,
                                         listen: false)
                                     .logout();
-                                print("after logout()");
                                 if (context.mounted && success) {
-                                  print("1st if");
                                   // Navigator.pop(context);
                                   Navigator.pushReplacement(
                                     context,
@@ -282,7 +277,6 @@ class _ProductsPageState extends State<ProductsPage> {
                                   return;
                                 }
                                 if (context.mounted) {
-                                  print("2nd if");
                                   Navigator.pop(context);
                                 }
                               },

@@ -147,7 +147,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         children: [
                           Text(
                             local.register,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.black54,

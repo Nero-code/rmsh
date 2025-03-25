@@ -10,6 +10,7 @@
     "profile": "Profile",
     "favs": "Favourites",
     "language": "Language",
+    "chooseLang": "Choose Language",
 
     "logout": "Logout",
     "logoutMessage": "Are you sure? your data may be deleted.",

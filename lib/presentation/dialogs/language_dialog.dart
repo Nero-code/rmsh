@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LanguageDialog extends StatefulWidget {
   const LanguageDialog({
@@ -24,9 +25,10 @@ class _LanguageDialogState extends State<LanguageDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     return AlertDialog(
       icon: const Icon(Icons.language),
-      title: const Text("choose lang"),
+      title: Text(local.chooseLang),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -51,14 +53,14 @@ class _LanguageDialogState extends State<LanguageDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text("cancel"),
+          child: Text(local.cancel),
         ),
         ElevatedButton(
           onPressed: () {
             widget.onPositive(lang);
             Navigator.pop(context);
           },
-          child: Text("ok"),
+          child: Text(local.ok),
         ),
       ],
     );
