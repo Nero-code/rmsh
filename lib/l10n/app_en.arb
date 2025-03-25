@@ -5,7 +5,7 @@
     "orders": "Orders",
     "search": "Search",
 
-    "addToCart": "",
+    "addToCart": "Add to cart",
     
     "profile": "Profile",
     "favs": "Favourites",
@@ -23,7 +23,7 @@
     "chooseDate": "Choose Date",
     "save": "Save",
 
-    "emptyFieldErrorMsg": "",
+    "emptyFieldErrorMsg": "Don't leave field empty",
 
     "register": "Register",
     "verify": "Verify Code",
